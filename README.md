@@ -1,5 +1,7 @@
 # sphinx-query-builder
 
+## TODO
+- Add `->match($something)` shorthand
 
 - If you are using this library standalone and need events, require `illuminate/events` and set a Dispatcher instance to your SphinxConnection if you need events.
 - If you're using this package with Laravel, please refer to `\Illuminate\Database\Connection::resolverFor` where you can set a factory callback that accepts the same parameters as `ConnectionFactory::createConnection`.
