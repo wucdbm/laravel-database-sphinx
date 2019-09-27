@@ -62,6 +62,18 @@ class ConnectionFactory {
 ```php
 <?php
 
+$connection = \MyApp\SomeFactory\ConnectionFactory::create(
+    'sphinx', '127.0.0.1', '9306',
+    '', '', ''
+);
+$dispatcher = \MyApp\SomeFactory\ConnectionFactory::withEvents($connection);
+
+// ...
+```
+
+```php
+<?php
+
 namespace MyApp\SomeModule;
 
 use Illuminate\Database\Query\Builder;
