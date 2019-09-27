@@ -1,8 +1,8 @@
 # sphinx-query-builder
 
 
-- If you are using this library standalone and need events, require `illuminate/events` and set a Dispatcher instance to your SphinxConnection
-- If you're using this package with Laravel, please refer to `\Illuminate\Database\Connection::resolverFor` where you can set a factory callback that accepts the same parameters as `ConnectionFactory::createConnection`
+- If you are using this library standalone and need events, require `illuminate/events` and set a Dispatcher instance to your SphinxConnection if you need events.
+- If you're using this package with Laravel, please refer to `\Illuminate\Database\Connection::resolverFor` where you can set a factory callback that accepts the same parameters as `ConnectionFactory::createConnection`.
 
 ## Example Usage
 
@@ -71,8 +71,6 @@ use MyApp\MyFilterAndPaginationDTO;
 
 class SomeRandomModule {
 
-    use PaginateTrait;
-
     /** @var SphinxConnection */
     private $db;
 
@@ -80,7 +78,7 @@ class SomeRandomModule {
         $this->db = $db;
     }
 
-    public function stats(MyFilterAndPaginationDTO $filter) {
+    public function stats(MyFilterAndPaginationDTO $filter): Collection {
         $fromDate = $filter->getFromDate();
         $fromDate->setTime(0, 0, 0);
         $toDate = $filter->getToDate();
@@ -88,7 +86,7 @@ class SomeRandomModule {
 
         $pagination = $filter->getPagination();
 
-        $builder = $this->db->table('av_provider_logs_distributed');
+        $builder = $this->db->table('my_sphinx_index');
         $builder->select([
             $builder->raw('COUNT(*) AS cnt'),
             'provider_id',
@@ -111,6 +109,7 @@ class SomeRandomModule {
             $builder->where('status_id', '=', $status->getId());
         }
 
+        // You also need to configure this in sphinx.conf
         $builder->maxMatches(10000);
 
         return $this->paginate($filter, $builder);
