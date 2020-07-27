@@ -12,30 +12,25 @@
 namespace Wucdbm\Component\SphinxQueryBuilder;
 
 use Illuminate\Database\MySqlConnection;
+use Illuminate\Database\Query\Builder;
 
 class SphinxConnection extends MySqlConnection {
 
-    /**
-     * @return SphinxQLGrammar
-     */
-    protected function getDefaultQueryGrammar() {
+    protected function getDefaultQueryGrammar(): SphinxQLGrammar {
         return $this->withTablePrefix(new SphinxQLGrammar());
     }
 
     /**
-     * @param \Closure|\Illuminate\Database\Query\Builder|string $table
-     * @param string|null                                        $as
+     * @param \Closure|Builder|string $table
+     * @param string|null $as
      *
      * @return SphinxQueryBuilder
      */
-    public function table($table, $as = null) {
+    public function table($table, $as = null): SphinxQueryBuilder {
         return $this->query()->from($table, $as);
     }
 
-    /**
-     * @return SphinxQueryBuilder
-     */
-    public function query() {
+    public function query(): SphinxQueryBuilder {
         return new SphinxQueryBuilder(
             $this, $this->getQueryGrammar(), $this->getPostProcessor()
         );

@@ -16,7 +16,7 @@ use Illuminate\Database\Query\Grammars\MySqlGrammar;
 
 class SphinxQLGrammar extends MySqlGrammar {
 
-    protected function compileLimit(Builder $query, $limit) {
+    protected function compileLimit(Builder $query, $limit): string {
         if ($query->offset) {
             return sprintf('LIMIT %d, %d', (int) $query->offset, (int) $limit);
         }
@@ -24,7 +24,7 @@ class SphinxQLGrammar extends MySqlGrammar {
         return parent::compileLimit($query, $limit);
     }
 
-    protected function compileOffset(Builder $query, $offset) {
+    protected function compileOffset(Builder $query, $offset): string {
         return '';
     }
 
