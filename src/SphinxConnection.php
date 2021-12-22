@@ -17,7 +17,10 @@ use Illuminate\Database\Query\Builder;
 class SphinxConnection extends MySqlConnection {
 
     protected function getDefaultQueryGrammar(): SphinxQLGrammar {
-        return $this->withTablePrefix(new SphinxQLGrammar());
+        $grammar = new SphinxQLGrammar();
+        $this->withTablePrefix($grammar);
+
+        return $grammar;
     }
 
     /**

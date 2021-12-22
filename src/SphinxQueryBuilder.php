@@ -15,8 +15,7 @@ use Illuminate\Database\Query\Builder;
 
 class SphinxQueryBuilder extends Builder {
 
-    /** @var int */
-    public $maxMatches = 1000;
+    public int $maxMatches = 1000;
 
     public function maxMatches(int $maxMatches): self {
         $this->maxMatches = $maxMatches;

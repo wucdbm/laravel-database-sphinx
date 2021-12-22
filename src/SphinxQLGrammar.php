@@ -18,7 +18,7 @@ class SphinxQLGrammar extends MySqlGrammar {
 
     protected function compileLimit(Builder $query, $limit): string {
         if ($query->offset) {
-            return sprintf('LIMIT %d, %d', (int) $query->offset, (int) $limit);
+            return sprintf('LIMIT %d, %d', $query->offset, (int) $limit);
         }
 
         return parent::compileLimit($query, $limit);
